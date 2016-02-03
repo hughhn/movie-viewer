@@ -6,8 +6,12 @@
 //  Copyright © 2016 Hugo Nguyen. All rights reserved.
 //
 
-import Cocoa
+import UIKit
 
 class MovieCell: UITableViewCell {
+
+    @IBOutlet weak var titleLable: UILabel!
+    @IBOutlet weak var overviewLabel: UILabel!
+    @IBOutlet weak var posterView: UIImageView!
 
 }
