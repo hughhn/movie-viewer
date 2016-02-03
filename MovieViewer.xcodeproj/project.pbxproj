@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B11CD311C61E24300414022 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B11CD301C61E24300414022 /* DetailViewController.swift */; };
 		0B4824121C61D3C000660FAE /* MovieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4824111C61D3C000660FAE /* MovieCell.swift */; };
 		0B6DC2CE1C61C2E700D8CD16 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6DC2CD1C61C2E700D8CD16 /* AppDelegate.swift */; };
 		0B6DC2D31C61C2E700D8CD16 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B6DC2D11C61C2E700D8CD16 /* Main.storyboard */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0B11CD301C61E24300414022 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		0B4824111C61D3C000660FAE /* MovieCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieCell.swift; sourceTree = "<group>"; };
 		0B6DC2CA1C61C2E700D8CD16 /* MovieViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B6DC2CD1C61C2E700D8CD16 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -56,6 +58,7 @@
 			isa = PBXGroup;
 			children = (
 				0B6DC2DF1C61C3BE00D8CD16 /* MovieViewController.swift */,
+				0B11CD301C61E24300414022 /* DetailViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -235,6 +238,7 @@
 			files = (
 				0B6DC2CE1C61C2E700D8CD16 /* AppDelegate.swift in Sources */,
 				0B6DC2E01C61C3BE00D8CD16 /* MovieViewController.swift in Sources */,
+				0B11CD311C61E24300414022 /* DetailViewController.swift in Sources */,
 				0B4824121C61D3C000660FAE /* MovieCell.swift in Sources */,
 				0B6DC2E21C61C90500D8CD16 /* Constants.swift in Sources */,
 			);
