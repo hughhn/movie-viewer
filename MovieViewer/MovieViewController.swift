@@ -62,7 +62,7 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
         let title = movie["title"] as? String
         let overview = movie["overview"] as? String
         if let posterPath = movie["poster_path"] as? String {
-            let baseUrl = "http://image.tmdb.org/t/p/w45"
+            let baseUrl = "http://image.tmdb.org/t/p/w500"
             let imageUrl = NSURL(string: baseUrl + posterPath)
             cell.posterView.setImageWithURL(imageUrl!)
         } else {
