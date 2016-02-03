@@ -33,7 +33,7 @@ class DetailViewController: UIViewController {
         if let posterPath = movie["poster_path"] as? String {
             let baseUrl = "https://image.tmdb.org/t/p/original"
             let imageUrl = NSURL(string: baseUrl + posterPath)
-            posterImageView.setImageWithURL(imageUrl!)
+            posterImageView.setImageWithURL(imageUrl!, placeholderImage: nil)
         } else {
             // No poster image. Can either set to nil (no image) or a default movie poster image
             // that you include as an asset

@@ -64,7 +64,7 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
         if let posterPath = movie["poster_path"] as? String {
             let baseUrl = "http://image.tmdb.org/t/p/w500"
             let imageUrl = NSURL(string: baseUrl + posterPath)
-            cell.posterView.setImageWithURL(imageUrl!)
+            cell.posterView.setImageWithURL(imageUrl!, placeholderImage: nil)
         } else {
             // No poster image. Can either set to nil (no image) or a default movie poster image
             // that you include as an asset
