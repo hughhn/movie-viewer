@@ -14,6 +14,7 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
     @IBOutlet weak var tableView: UITableView!
     
     var movies: [NSDictionary]?
+    var endpoint: String!
     
     func successFetchCb(responseDictionary: NSDictionary) -> Void {
         self.movies = responseDictionary["results"] as! [NSDictionary]
@@ -35,8 +36,7 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
         // Do any additional setup after loading the view.
         
         fetchMovies(
-            "now_playing",
-            successCallback: successFetchCb,
+            successFetchCb,
             errorCallback: errorFetchCb
         )
     }
@@ -59,20 +59,25 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
         let cell = tableView.dequeueReusableCellWithIdentifier("MovieCell", forIndexPath: indexPath) as! MovieCell
         
         let movie = movies![indexPath.row]
-        let title = movie["title"] as! String
-        let overview = movie["overview"] as! String
-        let posterPath = movie["poster_path"] as! String
-        let baseUrl = "http://image.tmdb.org/t/p/w500"
-        let imageUrl = NSURL(string: baseUrl + posterPath)
+        let title = movie["title"] as? String
+        let overview = movie["overview"] as? String
+        if let posterPath = movie["poster_path"] as? String {
+            let baseUrl = "http://image.tmdb.org/t/p/w45"
+            let imageUrl = NSURL(string: baseUrl + posterPath)
+            cell.posterView.setImageWithURL(imageUrl!)
+        } else {
+            // No poster image. Can either set to nil (no image) or a default movie poster image
+            // that you include as an asset
+            cell.posterView.image = nil
+        }
         
         cell.titleLable.text = title
         cell.overviewLabel.text = overview
-        cell.posterView.setImageWithURL(imageUrl!)
         
         return cell
     }
     
-    func fetchMovies(endpoint: String, successCallback: (NSDictionary) -> Void, errorCallback: ((NSError?) -> Void)?) {
+    func fetchMovies(successCallback: (NSDictionary) -> Void, errorCallback: ((NSError?) -> Void)?) {
         let url = NSURL(string:"http://api.themoviedb.org/3/movie/\(endpoint)?api_key=\(apiKey)")
         let request = NSURLRequest(URL: url!)
         let session = NSURLSession(
