@@ -21,6 +21,13 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let screenRect = UIScreen.mainScreen().bounds
+        let screenWidth = screenRect.size.width
+        let screenHeight = screenRect.size.height
+        scrollView.frame = CGRectMake(0, 0, screenWidth, screenHeight)
+        posterImageView.frame = CGRectMake(0, 0, screenWidth, screenHeight)
+        infoView.frame = CGRectMake(0, screenHeight, screenWidth, infoView.frame.size.height)
+        
         scrollView.contentSize = CGSize(width: scrollView.contentSize.width, height: infoView.frame.origin.y + infoView.frame.size.height)
 
         let title = movie["title"] as? String

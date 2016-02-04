@@ -33,6 +33,11 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
         tableView.dataSource = self
         tableView.delegate = self
         
+        let screenRect = UIScreen.mainScreen().bounds
+        let screenWidth = screenRect.size.width
+        let screenHeight = screenRect.size.height
+        tableView.frame = CGRectMake(0, 0, screenWidth, screenHeight)
+        
         // Do any additional setup after loading the view.
         
         fetchMovies(
