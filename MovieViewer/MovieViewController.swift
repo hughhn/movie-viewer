@@ -13,9 +13,19 @@ import MBProgressHUD
 class MovieViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var errorMsgView: UIView!
     
     var movies: [NSDictionary]?
     var endpoint: String!
+    
+    func showError() {
+        self.errorMsgView.hidden = false
+        NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: "hideError", userInfo: nil, repeats: false)
+    }
+    
+    func hideError() {
+        self.errorMsgView.hidden = true
+    }
     
     func fetchMovies(refreshControl: UIRefreshControl?) {
         let url = NSURL(string:"http://api.themoviedb.org/3/movie/\(endpoint)?api_key=\(apiKey)")
@@ -35,6 +45,7 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
                 MBProgressHUD.hideHUDForView(self.view, animated: true)
                 
                 if let requestError = errorOrNil {
+                    self.showError()
                     print(requestError)
                 } else {
                     if let data = dataOrNil {
@@ -72,6 +83,9 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: "refreshControlAction:", forControlEvents: UIControlEvents.ValueChanged)
         tableView.insertSubview(refreshControl, atIndex: 0)
+        
+        errorMsgView.frame = CGRectMake(0, errorMsgView.frame.origin.y, screenWidth, errorMsgView.frame.size.height)
+        errorMsgView.hidden = true
         
         // Do any additional setup after loading the view.
         
