@@ -16,15 +16,38 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
     var movies: [NSDictionary]?
     var endpoint: String!
     
-    func successFetchCb(responseDictionary: NSDictionary) -> Void {
-        self.movies = responseDictionary["results"] as! [NSDictionary]
-        self.tableView.reloadData()
+    func fetchMovies(refreshControl: UIRefreshControl?) {
+        let url = NSURL(string:"http://api.themoviedb.org/3/movie/\(endpoint)?api_key=\(apiKey)")
+        let request = NSURLRequest(URL: url!)
+        let session = NSURLSession(
+            configuration: NSURLSessionConfiguration.defaultSessionConfiguration(),
+            delegate:nil,
+            delegateQueue:NSOperationQueue.mainQueue()
+        )
+        
+        let task : NSURLSessionDataTask = session.dataTaskWithRequest(request,
+            completionHandler: { (dataOrNil, responseOrNil, errorOrNil) in
+                if let requestError = errorOrNil {
+                    print(requestError)
+                } else {
+                    if let data = dataOrNil {
+                        if let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
+                            data, options:[]) as? NSDictionary {
+                                NSLog("response: \(responseDictionary)")
+                                self.movies = responseDictionary["results"] as! [NSDictionary]
+                                self.tableView.reloadData()
+                        }
+                    }
+                }
+                if let refreshControl = refreshControl {
+                    refreshControl.endRefreshing()
+                }
+        });
+        task.resume()
     }
     
-    func errorFetchCb(error: NSError?) -> Void {
-        if error != nil {
-            print(error)
-        }
+    func refreshControlAction(refreshControl: UIRefreshControl) {
+        fetchMovies(refreshControl)
     }
     
     override func viewDidLoad() {
@@ -38,12 +61,14 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
         let screenHeight = screenRect.size.height
         tableView.frame = CGRectMake(0, 0, screenWidth, screenHeight)
         
+        // Initialize a UIRefreshControl
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: "fetchMovies:", forControlEvents: UIControlEvents.ValueChanged)
+        tableView.insertSubview(refreshControl, atIndex: 0)
+        
         // Do any additional setup after loading the view.
         
-        fetchMovies(
-            successFetchCb,
-            errorCallback: errorFetchCb
-        )
+        fetchMovies(nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -80,32 +105,6 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
         cell.overviewLabel.text = overview
         
         return cell
-    }
-    
-    func fetchMovies(successCallback: (NSDictionary) -> Void, errorCallback: ((NSError?) -> Void)?) {
-        let url = NSURL(string:"http://api.themoviedb.org/3/movie/\(endpoint)?api_key=\(apiKey)")
-        let request = NSURLRequest(URL: url!)
-        let session = NSURLSession(
-            configuration: NSURLSessionConfiguration.defaultSessionConfiguration(),
-            delegate:nil,
-            delegateQueue:NSOperationQueue.mainQueue()
-        )
-        
-        let task : NSURLSessionDataTask = session.dataTaskWithRequest(request,
-            completionHandler: { (dataOrNil, responseOrNil, errorOrNil) in
-                if let requestError = errorOrNil {
-                    errorCallback?(requestError)
-                } else {
-                    if let data = dataOrNil {
-                        if let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
-                            data, options:[]) as? NSDictionary {
-                                NSLog("response: \(responseDictionary)")
-                                successCallback(responseDictionary)
-                        }
-                    }
-                }
-        });
-        task.resume()
     }
 
     // MARK: - Navigation
