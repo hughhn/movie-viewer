@@ -20,11 +20,14 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     func showError() {
         self.errorMsgView.hidden = false
-        NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: "hideError", userInfo: nil, repeats: false)
-    }
-    
-    func hideError() {
-        self.errorMsgView.hidden = true
+        
+        UIView.animateWithDuration(1.0, delay: 2.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
+                self.errorMsgView.alpha = 0.0
+            }, completion: { finished in
+                self.errorMsgView.alpha = 1.0
+                self.errorMsgView.hidden = true
+        })
+        
     }
     
     func fetchMovies(refreshControl: UIRefreshControl?) {
