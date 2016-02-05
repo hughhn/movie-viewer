@@ -10,9 +10,10 @@ import UIKit
 import AFNetworking
 import MBProgressHUD
 
-class MovieViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class MovieViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate {
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var errorMsgView: UIView!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     
@@ -55,9 +56,10 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
                     if let data = dataOrNil {
                         if let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
                             data, options:[]) as? NSDictionary {
-                                NSLog("response: \(responseDictionary)")
+                                //NSLog("response: \(responseDictionary)")
                                 self.movies = responseDictionary["results"] as! [NSDictionary]
                                 self.tableView.reloadData()
+                                self.collectionView.reloadData()
                         }
                     }
                 }
@@ -77,11 +79,16 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
 
         tableView.dataSource = self
         tableView.delegate = self
+        collectionView.dataSource = self
+        collectionView.delegate = self
         
         let screenRect = UIScreen.mainScreen().bounds
         let screenWidth = screenRect.size.width
         let screenHeight = screenRect.size.height
-        tableView.frame = CGRectMake(0, tableView.frame.origin.y, screenWidth, screenHeight)
+        tableView.frame = CGRectMake(0, tableView.frame.origin.y, screenWidth, screenHeight - tableView.frame.origin.y)
+        collectionView.frame = CGRectMake(0, collectionView.frame.origin.y, screenWidth, screenHeight - collectionView.frame.origin.y)
+        tableView.hidden = false
+        collectionView.hidden = true
         
         // Initialize a UIRefreshControl
         let refreshControl = UIRefreshControl()
@@ -103,13 +110,48 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
         // Dispose of any resources that can be recreated.
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    @IBAction func onTabChange(sender: AnyObject) {
+        print (segmentedControl.selectedSegmentIndex)
+        if segmentedControl.selectedSegmentIndex == 0 {
+            tableView.hidden = false
+            collectionView.hidden = true
+        } else {
+            tableView.hidden = true
+            collectionView.hidden = false
+        }
+    }
+    
+    func getNumMovies() -> Int {
         if let movies = movies {
             return movies.count
         } else {
             return 0
         }
+    }
+    
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return getNumMovies()
+    }
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("MovieCollectionCell", forIndexPath: indexPath) as! MovieCollectionCell
         
+        let movie = movies![indexPath.row]
+        if let posterPath = movie["poster_path"] as? String {
+            let baseUrl = "http://image.tmdb.org/t/p/w500"
+            let imageUrl = NSURL(string: baseUrl + posterPath)
+            cell.posterView.setImageWithURL(imageUrl!, placeholderImage: nil)
+        } else {
+            // No poster image. Can either set to nil (no image) or a default movie poster image
+            // that you include as an asset
+            cell.posterView.image = nil
+        }
+        
+        return cell
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return getNumMovies()
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
