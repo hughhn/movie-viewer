@@ -89,6 +89,8 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
         collectionView.frame = CGRectMake(0, collectionView.frame.origin.y, screenWidth, screenHeight - collectionView.frame.origin.y)
         tableView.hidden = false
         collectionView.hidden = true
+        //collectionView.contentInset = UIEdgeInsetsMake(0.0, 10.0, 50.0, 10.0)
+        
         
         // Initialize a UIRefreshControl
         let refreshControl = UIRefreshControl()
