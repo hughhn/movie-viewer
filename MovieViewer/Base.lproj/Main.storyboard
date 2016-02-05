@@ -14,7 +14,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="119" sectionHeaderHeight="28" sectionFooterHeight="28" id="geu-NO-Zfl">
-                                <rect key="frame" x="0.0" y="29" width="320" height="539"/>
+                                <rect key="frame" x="0.0" y="73" width="320" height="504"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -55,7 +55,7 @@
                                 </prototypes>
                             </tableView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="DcR-Uh-lvf">
-                                <rect key="frame" x="0.0" y="93" width="320" height="400"/>
+                                <rect key="frame" x="0.0" y="137" width="320" height="400"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <inset key="contentInset" minX="10" minY="10" maxX="10" maxY="60"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="4Ye-u8-WJK">
@@ -87,7 +87,7 @@
                                 </cells>
                             </collectionView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" id="Fwy-gx-tIB">
-                                <rect key="frame" x="0.0" y="65" width="320" height="29"/>
+                                <rect key="frame" x="0.0" y="109" width="320" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <segments>
@@ -99,7 +99,7 @@
                                 </connections>
                             </segmentedControl>
                             <view contentMode="scaleToFill" id="PVS-Mi-5FD">
-                                <rect key="frame" x="0.0" y="94" width="320" height="59"/>
+                                <rect key="frame" x="0.0" y="138" width="320" height="68"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Network Error" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="MIF-NH-iLA">
@@ -112,6 +112,11 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
+                            <searchBar contentMode="redraw" id="827-kB-76g">
+                                <rect key="frame" x="0.0" y="64" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -119,6 +124,7 @@
                     <connections>
                         <outlet property="collectionView" destination="DcR-Uh-lvf" id="cba-pH-OUy"/>
                         <outlet property="errorMsgView" destination="PVS-Mi-5FD" id="NbL-tW-roz"/>
+                        <outlet property="searchBar" destination="827-kB-76g" id="vPr-vr-eFL"/>
                         <outlet property="segmentedControl" destination="Fwy-gx-tIB" id="p6w-Nw-I4i"/>
                         <outlet property="tableView" destination="geu-NO-Zfl" id="uuL-LS-fqB"/>
                     </connections>

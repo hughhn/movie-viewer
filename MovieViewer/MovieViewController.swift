@@ -10,15 +10,27 @@ import UIKit
 import AFNetworking
 import MBProgressHUD
 
-class MovieViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate {
+class MovieViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UISearchBarDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var errorMsgView: UIView!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
+    @IBOutlet weak var searchBar: UISearchBar!
     
     var movies: [NSDictionary]?
     var endpoint: String!
+    var filteredData: [String]!
+    
+    func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
+        searchBar.showsCancelButton = true
+    }
+    
+    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        searchBar.showsCancelButton = false
+        searchBar.text = ""
+        searchBar.resignFirstResponder()
+    }
     
     func showError() {
         self.errorMsgView.hidden = false
@@ -81,6 +93,7 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
         tableView.delegate = self
         collectionView.dataSource = self
         collectionView.delegate = self
+        searchBar.delegate = self
         
         let screenRect = UIScreen.mainScreen().bounds
         let screenWidth = screenRect.size.width
