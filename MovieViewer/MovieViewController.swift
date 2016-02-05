@@ -111,7 +111,6 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     @IBAction func onTabChange(sender: AnyObject) {
-        print (segmentedControl.selectedSegmentIndex)
         if segmentedControl.selectedSegmentIndex == 0 {
             tableView.hidden = false
             collectionView.hidden = true
@@ -183,12 +182,21 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         
-        let cell = sender as! UITableViewCell
-        let indexPath = tableView.indexPathForCell(cell)
-        let movie = movies![indexPath!.row]
+        var index: NSIndexPath? = nil
+        if let cell = sender as? UITableViewCell {
+            index = tableView.indexPathForCell(cell)
+        } else if let cell = sender as? UICollectionViewCell {
+            index = collectionView.indexPathForCell(cell)
+        }
+        
+        var movie = movies![0]
+        if let index = index {
+            movie = movies![index.row]
+        }
         
         let detailViewController = segue.destinationViewController as! DetailViewController
         detailViewController.movie = movie
+        
     }
 
 }

@@ -80,6 +80,7 @@
                                         </view>
                                         <connections>
                                             <outlet property="posterView" destination="NSH-hE-hVh" id="HEg-sT-B5K"/>
+                                            <segue destination="a6u-Gt-qGs" kind="push" id="onn-Y0-0Er"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -198,4 +199,7 @@
             <point key="canvasLocation" x="202" y="330"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="onn-Y0-0Er"/>
+    </inferredMetricsTieBreakers>
 </document>
