@@ -55,7 +55,7 @@
                                 </prototypes>
                             </tableView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="DcR-Uh-lvf">
-                                <rect key="frame" x="0.0" y="93" width="320" height="539"/>
+                                <rect key="frame" x="0.0" y="93" width="320" height="400"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="4Ye-u8-WJK">
                                     <size key="itemSize" width="87" height="121"/>
