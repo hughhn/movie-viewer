@@ -14,6 +14,7 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var errorMsgView: UIView!
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
     
     var movies: [NSDictionary]?
     var endpoint: String!
@@ -80,12 +81,14 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
         let screenRect = UIScreen.mainScreen().bounds
         let screenWidth = screenRect.size.width
         let screenHeight = screenRect.size.height
-        tableView.frame = CGRectMake(0, 0, screenWidth, screenHeight)
+        tableView.frame = CGRectMake(0, tableView.frame.origin.y, screenWidth, screenHeight)
         
         // Initialize a UIRefreshControl
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: "refreshControlAction:", forControlEvents: UIControlEvents.ValueChanged)
         tableView.insertSubview(refreshControl, atIndex: 0)
+        
+        segmentedControl.frame = CGRectMake(0, segmentedControl.frame.origin.y, screenWidth, segmentedControl.frame.size.height)
         
         errorMsgView.frame = CGRectMake(0, errorMsgView.frame.origin.y, screenWidth, errorMsgView.frame.size.height)
         errorMsgView.hidden = true
