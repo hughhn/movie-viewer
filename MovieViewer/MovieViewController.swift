@@ -178,7 +178,7 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         let movie = filteredMovies![indexPath.row]
         if let posterPath = movie["poster_path"] as? String {
-            let imageUrl = "http://image.tmdb.org/t/p/w45" + posterPath
+            let imageUrl = "http://image.tmdb.org/t/p/w500" + posterPath
             fadeInImg(cell.posterView, imageUrl: imageUrl)
         } else {
             // No poster image. Can either set to nil (no image) or a default movie poster image
