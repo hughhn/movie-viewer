@@ -30,6 +30,9 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
         searchBar.showsCancelButton = false
         searchBar.text = ""
         searchBar.resignFirstResponder()
+        filteredMovies = movies
+        tableView.reloadData()
+        collectionView.reloadData()
     }
     
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
