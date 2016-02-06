@@ -38,9 +38,9 @@ class DetailViewController: UIViewController {
         overviewLabel.sizeToFit()
         
         if let posterPath = movie["poster_path"] as? String {
-            let baseUrl = "https://image.tmdb.org/t/p/original"
-            let imageUrl = NSURL(string: baseUrl + posterPath)
-            posterImageView.setImageWithURL(imageUrl!, placeholderImage: nil)
+            let smallImageUrl = "http://image.tmdb.org/t/p/w500" + posterPath
+            let largeImageUrl = "https://image.tmdb.org/t/p/original" + posterPath
+            loadLowResThenHighResImg(posterImageView, smallImageUrl: smallImageUrl, largeImageUrl: largeImageUrl)
         } else {
             // No poster image. Can either set to nil (no image) or a default movie poster image
             // that you include as an asset

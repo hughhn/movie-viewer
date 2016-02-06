@@ -178,9 +178,8 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         let movie = filteredMovies![indexPath.row]
         if let posterPath = movie["poster_path"] as? String {
-            let baseUrl = "http://image.tmdb.org/t/p/w500"
-            let imageUrl = NSURL(string: baseUrl + posterPath)
-            cell.posterView.setImageWithURL(imageUrl!, placeholderImage: nil)
+            let imageUrl = "http://image.tmdb.org/t/p/w45" + posterPath
+            fadeInImg(cell.posterView, imageUrl: imageUrl)
         } else {
             // No poster image. Can either set to nil (no image) or a default movie poster image
             // that you include as an asset
@@ -201,9 +200,8 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
         let title = movie["title"] as? String
         let overview = movie["overview"] as? String
         if let posterPath = movie["poster_path"] as? String {
-            let baseUrl = "http://image.tmdb.org/t/p/w500"
-            let imageUrl = NSURL(string: baseUrl + posterPath)
-            cell.posterView.setImageWithURL(imageUrl!, placeholderImage: nil)
+            let imageUrl = "http://image.tmdb.org/t/p/w500" + posterPath
+            fadeInImg(cell.posterView, imageUrl: imageUrl)
         } else {
             // No poster image. Can either set to nil (no image) or a default movie poster image
             // that you include as an asset

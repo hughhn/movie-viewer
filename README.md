@@ -19,14 +19,15 @@ The following **optional** features are implemented:
 - [X] Add a tab bar for **Now Playing** and **Top Rated** movies.
 - [X] Implement segmented control to switch between list view and grid view.
 - [X] Add a search bar.
-- [ ] All images fade in.
-- [ ] For the large poster, load the low-res image first, switch to high-res when complete.
+- [X] All images fade in.
+- [X] For the large poster, load the low-res image first, switch to high-res when complete.
 - [ ] Customize the highlight and selection effect of the cell.
 - [ ] Customize the navigation bar.
 
 The following **additional** features are implemented:
 
 - [X] Resize programmatically the views (table view, collection view, poster view, etc.) to stretch the full width of screen
+- [X] Fades out error message after 2 seconds
 
 ## Video Walkthrough
 
