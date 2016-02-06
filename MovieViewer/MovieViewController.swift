@@ -20,7 +20,7 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     var movies: [NSDictionary]?
     var endpoint: String!
-    var filteredData: [String]!
+    var filteredMovies: [NSDictionary]?
     
     func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
         searchBar.showsCancelButton = true
@@ -30,6 +30,28 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
         searchBar.showsCancelButton = false
         searchBar.text = ""
         searchBar.resignFirstResponder()
+    }
+    
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        // When there is no text, filteredData is the same as the original data
+        if searchText.isEmpty {
+            filteredMovies = movies
+        } else {
+            // The user has entered text into the search box
+            // Poor man's way of filtering
+            filteredMovies?.removeAll()
+            if let movies = movies {
+                for movie in movies {
+                    if let title = movie["title"] as? String {
+                        if title.rangeOfString(searchText, options: .CaseInsensitiveSearch) != nil {
+                            filteredMovies?.append(movie)
+                        }
+                    }
+                }
+            }
+        }
+        tableView.reloadData()
+        collectionView.reloadData()
     }
     
     func showError() {
@@ -70,6 +92,7 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
                             data, options:[]) as? NSDictionary {
                                 //NSLog("response: \(responseDictionary)")
                                 self.movies = responseDictionary["results"] as! [NSDictionary]
+                                self.filteredMovies = self.movies
                                 self.tableView.reloadData()
                                 self.collectionView.reloadData()
                         }
@@ -136,8 +159,8 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func getNumMovies() -> Int {
-        if let movies = movies {
-            return movies.count
+        if let filteredMovies = filteredMovies {
+            return filteredMovies.count
         } else {
             return 0
         }
@@ -150,7 +173,7 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("MovieCollectionCell", forIndexPath: indexPath) as! MovieCollectionCell
         
-        let movie = movies![indexPath.row]
+        let movie = filteredMovies![indexPath.row]
         if let posterPath = movie["poster_path"] as? String {
             let baseUrl = "http://image.tmdb.org/t/p/w500"
             let imageUrl = NSURL(string: baseUrl + posterPath)
@@ -171,7 +194,7 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("MovieCell", forIndexPath: indexPath) as! MovieCell
         
-        let movie = movies![indexPath.row]
+        let movie = filteredMovies![indexPath.row]
         let title = movie["title"] as? String
         let overview = movie["overview"] as? String
         if let posterPath = movie["poster_path"] as? String {
@@ -204,9 +227,9 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
             index = collectionView.indexPathForCell(cell)
         }
         
-        var movie = movies![0]
+        var movie = filteredMovies![0]
         if let index = index {
-            movie = movies![index.row]
+            movie = filteredMovies![index.row]
         }
         
         let detailViewController = segue.destinationViewController as! DetailViewController
