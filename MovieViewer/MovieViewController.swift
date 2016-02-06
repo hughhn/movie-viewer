@@ -136,6 +136,10 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
         refreshControl.addTarget(self, action: "refreshControlAction:", forControlEvents: UIControlEvents.ValueChanged)
         tableView.insertSubview(refreshControl, atIndex: 0)
         
+        let refreshCollectionControl = UIRefreshControl()
+        refreshCollectionControl.addTarget(self, action: "refreshControlAction:", forControlEvents: UIControlEvents.ValueChanged)
+        collectionView.insertSubview(refreshCollectionControl, atIndex: 0)
+        
         segmentedControl.frame = CGRectMake(0, segmentedControl.frame.origin.y, screenWidth, segmentedControl.frame.size.height)
         
         errorMsgView.frame = CGRectMake(0, errorMsgView.frame.origin.y, screenWidth, errorMsgView.frame.size.height)
