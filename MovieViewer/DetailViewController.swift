@@ -46,6 +46,8 @@ class DetailViewController: UIViewController {
             // that you include as an asset
             posterImageView.image = nil
         }
+        
+        self.navigationItem.title = title
     }
 
     override func didReceiveMemoryWarning() {

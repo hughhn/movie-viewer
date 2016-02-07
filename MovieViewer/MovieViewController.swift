@@ -147,7 +147,25 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         // Do any additional setup after loading the view.
         
+        setupNavigation()
         fetchMovies(nil)
+    }
+    
+    func setupNavigation() {
+        if let navigationBar = navigationController?.navigationBar {
+            navigationBar.setBackgroundImage(UIImage(named: "codepath-logo"), forBarMetrics: .Default)
+            navigationBar.tintColor = UIColor(red: 1.0, green: 0.25, blue: 0.25, alpha: 0.8)
+            
+            let shadow = NSShadow()
+            shadow.shadowColor = UIColor.grayColor().colorWithAlphaComponent(0.5)
+            shadow.shadowOffset = CGSizeMake(1, 1);
+            shadow.shadowBlurRadius = 2;
+            navigationBar.titleTextAttributes = [
+                NSFontAttributeName : UIFont.boldSystemFontOfSize(22),
+                NSForegroundColorAttributeName : UIColor(red: 250.0/255.0, green: 105.0/255.0, blue: 0.0, alpha: 1.0),
+                NSShadowAttributeName : shadow
+            ]
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -208,7 +226,7 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         cell.posterView.alpha = 1.0
     }
-    
+        
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("MovieCell", forIndexPath: indexPath) as! MovieCell
         
