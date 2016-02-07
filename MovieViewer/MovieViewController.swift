@@ -203,7 +203,7 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
         cell.posterView.alpha = 0.5
     }
     
-    func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(tableView: UITableView, didUnhighlightRowAtIndexPath indexPath: NSIndexPath) {
         let cell = tableView.cellForRowAtIndexPath(indexPath) as! MovieCell
         
         cell.posterView.alpha = 1.0
