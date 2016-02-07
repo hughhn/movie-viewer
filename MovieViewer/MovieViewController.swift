@@ -197,6 +197,18 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
         return getNumMovies()
     }
     
+    func tableView(tableView: UITableView, didHighlightRowAtIndexPath indexPath: NSIndexPath) {
+        let cell = tableView.cellForRowAtIndexPath(indexPath) as! MovieCell
+        
+        cell.posterView.alpha = 0.5
+    }
+    
+    func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+        let cell = tableView.cellForRowAtIndexPath(indexPath) as! MovieCell
+        
+        cell.posterView.alpha = 1.0
+    }
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("MovieCell", forIndexPath: indexPath) as! MovieCell
         
@@ -217,8 +229,12 @@ class MovieViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         // Custom selection style
         let backgroundView = UIView()
-        backgroundView.backgroundColor = UIColor.redColor()
+        backgroundView.backgroundColor = UIColor(red: 105.0/255.0, green: 210.0/255.0, blue: 231.0/255.0, alpha: 1.0)
         cell.selectedBackgroundView = backgroundView
+        
+        // Custom highlight style
+        cell.titleLable.highlightedTextColor = UIColor.whiteColor()
+        cell.overviewLabel.highlightedTextColor = UIColor.whiteColor()
         
         return cell
     }
