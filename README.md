@@ -22,7 +22,7 @@ The following **optional** features are implemented:
 - [X] All images fade in.
 - [X] For the large poster, load the low-res image first, switch to high-res when complete.
 - [X] Customize the highlight and selection effect of the cell.
-- [ ] Customize the navigation bar.
+- [X] Customize the navigation bar.
 
 The following **additional** features are implemented:
 
@@ -33,7 +33,7 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='http://i.imgur.com/Hvfvalg.gifv' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
