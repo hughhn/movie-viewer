@@ -18,14 +18,14 @@ func fadeInImg(imageView: UIImageView, imageUrl: String) {
             
             // imageResponse will be nil if the image is cached
             if imageResponse != nil {
-                print("Image was NOT cached, fade in image")
+                //print("Image was NOT cached, fade in image")
                 imageView.alpha = 0.0
                 imageView.image = image
                 UIView.animateWithDuration(1.0, animations: { () -> Void in
                     imageView.alpha = 1.0
                 })
             } else {
-                print("Image was cached so just update the image")
+                //print("Image was cached so just update the image")
                 imageView.image = image
             }
         },
